@@ -1,0 +1,121 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PersonaValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">dev.joseluisgs.validators</a>
+</div>
+
+<h1>Coverage Summary for Class: PersonaValidator (dev.joseluisgs.validators)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PersonaValidator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package dev.joseluisgs.validators
+&nbsp;
+&nbsp;import dev.joseluisgs.exceptions.PersonaException
+&nbsp;import dev.joseluisgs.models.Persona
+&nbsp;
+<b class="fc">&nbsp;class PersonaValidator {</b>
+&nbsp;    fun validate(persona: Persona): Persona {
+<b class="fc">&nbsp;        val emailRegex = Regex(&quot;^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})&quot;)</b>
+<b class="fc">&nbsp;        if (persona.name.isEmpty()) {</b>
+<b class="fc">&nbsp;            throw PersonaException.NameNotValid()</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (persona.email.isEmpty() || !emailRegex.matches(persona.email)) {</b>
+<b class="fc">&nbsp;            throw PersonaException.EmailNotValid()</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return persona</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-30 16:53</div>
+</div>
+</body>
+</html>

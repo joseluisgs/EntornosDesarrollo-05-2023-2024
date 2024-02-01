@@ -1,0 +1,195 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PersonasRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">dev.joseluisgs.repositories.personas</a>
+</div>
+
+<h1>Coverage Summary for Class: PersonasRepository (dev.joseluisgs.repositories.personas)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PersonasRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (35/35)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">PersonasRepository$sortById$$inlined$sortedBy$1</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (35/35)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package dev.joseluisgs.repositories.personas
+&nbsp;
+&nbsp;import dev.joseluisgs.models.Persona
+&nbsp;import dev.joseluisgs.repositories.base.CrudRepository
+&nbsp;
+<b class="fc">&nbsp;class PersonasRepository : CrudRepository&lt;Persona, Int&gt; {</b>
+<b class="fc">&nbsp;    private var personas: Array&lt;Persona?&gt; = arrayOfNulls&lt;Persona&gt;(10)</b>
+&nbsp;    private var key: Int = 0
+&nbsp;
+&nbsp;    override fun getAll(): Array&lt;Persona&gt; {
+&nbsp;        // Creamos un nuevo array con el tamaño de los elementos no nulos
+&nbsp;        /* val personasNoNulas = Array&lt;Persona&gt;(personas.size - contarNulos()) { i -&gt;
+&nbsp;             personas[i]!!
+&nbsp;         }
+&nbsp;         return personasNoNulas*/
+<b class="fc">&nbsp;        return personas.filterNotNull().toTypedArray()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    override fun getById(key: Int): Persona? {
+<b class="fc">&nbsp;        return personas.firstOrNull { it?.id == key }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun delete(key: Int): Persona? {
+&nbsp;        // sacamos su indice
+<b class="fc">&nbsp;        var persona: Persona? = null</b>
+<b class="fc">&nbsp;        this.personas.indexOfFirst { it?.id == key }</b>
+<b class="fc">&nbsp;            .takeIf { it != -1 }</b>
+<b class="fc">&nbsp;            ?.let {</b>
+&nbsp;                // Si existe lo borramos
+<b class="fc">&nbsp;                persona = personas[it]</b>
+<b class="fc">&nbsp;                personas[it] = null</b>
+<b class="fc">&nbsp;            }.also {</b>
+&nbsp;                // Redimensionamos el array si hay mas de 10 nulos
+<b class="fc">&nbsp;                if (personas.count { it == null } &gt; 10) {</b>
+<b class="fc">&nbsp;                    personas = personas.filterNotNull().toTypedArray()</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        return persona</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun update(key: Int, value: Persona): Persona? {
+<b class="fc">&nbsp;        return getById(key)?.apply {</b>
+<b class="fc">&nbsp;            name = value.name</b>
+<b class="fc">&nbsp;            email = value.email</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun save(value: Persona): Persona {
+&nbsp;        // Si el array está lleno (no tiene nulos)
+<b class="fc">&nbsp;        if (personas.count { it == null } == 0) {</b>
+&nbsp;            // Redimensionamos el array
+<b class="fc">&nbsp;            personas = personas.copyOf(personas.size + 10)</b>
+&nbsp;        }
+&nbsp;        // Añadimos el elemento en el primer nulo que encontremos
+<b class="fc">&nbsp;        val index = personas.indexOfFirst { it == null }</b>
+<b class="fc">&nbsp;        key++ // Incrementamos la clave</b>
+<b class="fc">&nbsp;        value.id = key // Asignamos la clave</b>
+<b class="fc">&nbsp;        personas[index] = value // Asignamos el valor</b>
+<b class="fc">&nbsp;        return value // Devolvemos el valor</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    fun initRepository() {
+<b class="fc">&nbsp;        personas = arrayOfNulls&lt;Persona&gt;(10)</b>
+<b class="fc">&nbsp;        key = 0</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    fun initExamples() {
+<b class="fc">&nbsp;        personas[0] = Persona(1, &quot;Test01&quot;, &quot;test01&quot;)</b>
+<b class="fc">&nbsp;        personas[1] = Persona(2, &quot;Test02&quot;, &quot;test02&quot;)</b>
+<b class="fc">&nbsp;        key = 2</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun sortById(): Array&lt;Persona&gt; {
+<b class="fc">&nbsp;        return personas</b>
+<b class="fc">&nbsp;            .filterNotNull()</b>
+<b class="fc">&nbsp;            .sortedBy { it.id }</b>
+<b class="fc">&nbsp;            .toTypedArray()</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-30 16:53</div>
+</div>
+</body>
+</html>

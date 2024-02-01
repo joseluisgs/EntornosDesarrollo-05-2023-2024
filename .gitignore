@@ -1,0 +1,7 @@
+*.pptx
+.DS_Store
+upload.sh
+/Recursos/Caja*
+/Recursos/JU*
+/Ejemplos/2022-2023
+UD05.pdf

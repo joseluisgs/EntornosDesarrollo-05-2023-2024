@@ -1,0 +1,141 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PersonasServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">dev.joseluisgs.services.personas</a>
+</div>
+
+<h1>Coverage Summary for Class: PersonasServiceImpl (dev.joseluisgs.services.personas)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PersonasServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (11/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package dev.joseluisgs.services.personas
+&nbsp;
+&nbsp;import dev.joseluisgs.exceptions.PersonaException
+&nbsp;import dev.joseluisgs.models.Persona
+&nbsp;import dev.joseluisgs.repositories.personas.PersonasRepository
+&nbsp;import dev.joseluisgs.validators.PersonaValidator
+&nbsp;
+<b class="fc">&nbsp;class PersonasServiceImpl(</b>
+<b class="fc">&nbsp;    private val repository: PersonasRepository,</b>
+<b class="fc">&nbsp;    private val validator: PersonaValidator</b>
+&nbsp;) : PersonasService {
+&nbsp;    override fun getAll(): Array&lt;Persona&gt; {
+<b class="fc">&nbsp;        return repository.getAll()</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun getById(id: Int): Persona {
+<b class="fc">&nbsp;        return repository.getById(id) ?: throw PersonaException.NotFound(id)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun save(persona: Persona): Persona {
+<b class="fc">&nbsp;        validator.validate(persona)</b>
+<b class="fc">&nbsp;        return repository.save(persona)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun update(id: Int, persona: Persona): Persona {
+<b class="fc">&nbsp;        validator.validate(persona)</b>
+<b class="fc">&nbsp;        return repository.update(id, persona) ?: throw PersonaException.NotFound(id)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun delete(id: Int): Persona {
+<b class="fc">&nbsp;        return repository.delete(id) ?: throw PersonaException.NotFound(id)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun sorted(): Array&lt;Persona&gt; {
+<b class="fc">&nbsp;        return repository.sortById()</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-01-30 16:53</div>
+</div>
+</body>
+</html>
